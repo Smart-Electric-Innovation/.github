@@ -1,123 +1,118 @@
 # Smart-Electric Innovation
 
-实验室资料与协作入口：整理资料、共享资源，集中管理成员贡献。
+实验室共享资料与成员贡献仓库，用于整理硬件、嵌入式开发及相关工具资料。
 
-## 目录
+## 1. 资料目录
 
-1. [用户使用指南](#用户使用指南)
-2. [仓库导航](#仓库导航)
-3. [协作约定](#协作约定)
+| 分类 | 建议提交内容 |
+|---|---|
+| 实验室器件资源 | 器件型号、规格书、选型资料及资源汇总 |
+| 硬件模块资源 | 模块介绍、参考教程、原理图、PCB、仿真图 |
+| 嵌入式官方资源 | 官方固件库、数据手册、用户手册、最小工程及参考模板 |
+| 嵌软模块 | 模块资料、使用手册、可运行的示例代码、移植方案 |
+| 嵌软开发工具 | 烧录调试工具、官方 IDE、安装说明及开发流程 |
+| 嵌软系统库 | FreeRTOS、Linux 等系统的相关源码及参考资料 |
+| 开源软件 | 实用开源工具、软件源码及使用说明 |
+| 个人贡献 | 开发经验、知识总结、技术文档、开发指南及个人项目 |
 
-## 用户使用指南
+### 提交参考
 
-面向已注册 GitHub 账号、首次使用 Git 的成员。
+- 器件资料：型号、数据手册、选型说明。
+- 硬件模块：功能介绍、原理图、PCB 文件、测试结果。
+- 嵌入式工程：芯片型号、开发环境、依赖说明、可运行的示例代码。
+- 软件工具：下载地址、安装方法、使用说明。
+- 技术总结：问题背景、解决方案、关键代码及参考链接。
 
-### 加入与权限
+建议按类别整理文件，尽量附带 README 或使用说明。优先提交有参考价值、可复用的资料；大型软件安装包、临时文件及无关生成文件不建议直接上传。
 
-接受 GitHub 邮箱中的组织邀请，再由管理员分配权限。
+## 2. Git 基本操作
 
-| 权限 | 可以做什么 |
-| --- | --- |
-| Read | 下载仓库、接收更新 |
-| Write | 下载、提交并推送修改 |
-| Admin | 管理仓库与权限 |
+### 首次下载仓库
 
-新成员默认 Read。`members` Team 对 `contrib` 有 Write 权限，对 `resources` 有 Read 权限；直接上传到 `resources` 前需管理员授予 Write。其他成员以实际分配权限为准。
+安装 [Git](https://git-scm.com/install)，打开终端执行：
 
-### 方式一：命令行（Windows / macOS）
-
-**首次配置**
-
-| 系统 | 安装 Git | 使用终端 |
-| --- | --- | --- |
-| Windows | 从 [Git 官网](https://git-scm.com/install/windows)安装 | CMD |
-| macOS | 按 [Git 官方安装说明](https://git-scm.com/install/mac)安装；可运行 `xcode-select --install` 安装命令行工具 | Terminal（终端） |
-
-安装后执行，两种系统相同；替换姓名和邮箱：
-
-```sh
-git --version
-git config --global user.name "你的名字"
-git config --global user.email "你的GitHub邮箱"
-```
-
-**下载仓库**
-
-以 `resources` 为例，选择本地存放位置。下面命令会创建 `CodeProjects` 目录。
-
-Windows（CMD）：
-
-```cmd
-mkdir "%USERPROFILE%\CodeProjects"
-cd /d "%USERPROFILE%\CodeProjects"
+```bash
 git clone https://github.com/Smart-Electric-Innovation/resources.git
 cd resources
 ```
 
-macOS（Terminal）：
+### 添加并提交资料
 
-```sh
-mkdir -p ~/CodeProjects
-cd ~/CodeProjects
-git clone https://github.com/Smart-Electric-Innovation/resources.git
-cd resources
-```
+将需要分享的文件复制到仓库目录，然后执行：
 
-私有仓库需使用已获授权的 GitHub 账号登录。以上完成后即可在本地查看资料。使用其他仓库时，将地址中的 `resources` 替换为对应仓库名。
-
-**上传资料（需 Write 权限）**
-
-先在仓库目录同步最新内容：
-
-```sh
+```bash
 git pull --rebase
-```
-
-再用文件管理器把 `Test` 文件夹复制到本地 `resources` 目录中，执行：
-
-```sh
 git status
-git add "Test"
-git commit -m "添加 Test 资料"
-git push origin main
+git add .
+git commit -m "添加相关资料"
+git push
 ```
 
-| 命令 | 含义 |
-| --- | --- |
-| `git pull --rebase` | 接收远程更新 |
-| `git status` | 查看本地修改 |
-| `git add "Test"` | 选择要提交的文件夹 |
-| `git commit -m "说明"` | 保存本地提交 |
-| `git push origin main` | 推送到 GitHub |
+命令说明：
 
-以后更新同样遵循：**先拉取 → 修改文件 → 选择文件 → 提交 → 推送**。操作前进入本地仓库目录，文件夹名和提交说明按实际内容替换。
+- `git pull --rebase`：同步远程仓库的最新内容。
+- `git status`：查看本次修改。
+- `git add .`：暂存当前目录下的所有变更。
+- `git commit -m "说明"`：创建本地提交。
+- `git push`：将提交推送到 GitHub。
 
-### 方式二：VS Code + GitHub 插件
+**注意：** `git add .` 会暂存当前目录下的所有变更，包括删除和修改。提交前应使用 `git status` 检查，确认没有不需要提交的内容。推送需要具备相应的仓库写入权限。
 
-Windows 与 macOS 均可使用。安装 Git 和 [VS Code](https://code.visualstudio.com/)，在扩展面板安装官方 [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)，按提示登录 GitHub。
+### 提交说明参考
 
-| 操作 | 在 VS Code 中完成 |
-| --- | --- |
-| 下载仓库 | 命令面板运行 `Git: Clone`，粘贴仓库地址，选择存放位置并打开 |
-| 接收更新 | 在“源代码管理”的 `…` 菜单选择 Pull（拉取） |
-| 上传资料 | 复制资料到仓库 → 点击文件旁的 `+` 暂存 → 填写说明并 Commit（提交）→ Push（推送） |
-| 提交审核 | 使用 GitHub 扩展创建或查看 Pull Request |
+```bash
+git commit -m "添加 STM32 外设驱动示例"
+git commit -m "更新 FreeRTOS 学习资料"
+git commit -m "补充硬件模块原理图"
+git commit -m "整理开发工具安装指南"
+```
 
-命令面板快捷键：Windows `Ctrl+Shift+P`，macOS `Cmd+Shift+P`。拉取、提交和推送由 VS Code 内置 Git 功能提供，GitHub 插件用于 PR 和 Issue 协作；权限要求与命令行相同。详见 [VS Code 官方指南](https://code.visualstudio.com/docs/sourcecontrol/github)。
+## 3. GitHub CLI 与 Agent 操作
 
-## 仓库导航
+安装 [GitHub CLI](https://cli.github.com/)，完成账号认证后，可以通过终端管理仓库、提交代码及处理 GitHub 协作任务。
 
-| 仓库 | 内容 | 维护者 |
-| --- | --- | --- |
-| [docs](https://github.com/Smart-Electric-Innovation/docs) | 资料整理与说明文档 | 管理员 |
-| [resources](https://github.com/Smart-Electric-Innovation/resources) | 共享资料、文献索引与模板 | 管理员及获授权成员 |
-| [contrib](https://github.com/Smart-Electric-Innovation/contrib) | 成员贡献，每人一个 `/GitHub用户名/` 目录 | 成员 |
-| [.github](https://github.com/Smart-Electric-Innovation/.github) | 组织主页与公共协作说明 | 管理员 |
+### 安装命令
 
-工作仓库为私有，需加入组织并获得访问权限。
+Windows（PowerShell）：
+
+```powershell
+winget install --id GitHub.cli
+```
+
+macOS（已安装 Homebrew）：
+
+```bash
+brew install gh
+```
+
+其他系统可参考 [GitHub CLI 官方安装指南](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)。
+
+### 登录与配置
+
+安装完成后执行：
+
+```bash
+gh auth login
+gh auth setup-git
+gh auth status
+```
+
+按照提示完成 GitHub 登录，并确认认证状态正常。
+
+### 使用 CLI 下载仓库
+
+```bash
+gh repo clone Smart-Electric-Innovation/resources
+cd resources
+```
+
+完成认证后，在已登录且具备仓库访问权限的终端环境中，可以让支持终端操作的 Agent 执行文件整理、Git 提交和推送等任务。
+
+**注意：** 安装 CLI 不等于自动授权 Agent。Agent 还需要获得相应的终端操作权限，并使用已认证且具有仓库写入权限的环境。不要将个人访问令牌或密码写入仓库文件。
 
 ## 协作约定
 
-- 成员贡献集中到 `contrib`，每人一个目录，不单独建成员仓库。
-- 修改前同步最新内容，只提交本次需要的文件，提交说明写清改动。
-- 权限由 Teams 统一管理；资料归入 `resources` 前由管理员协调。
+1. 资料按类别整理，尽量附带使用说明。
+2. 提交前同步远程更新，并检查本次变更。
+3. 提交说明应清楚描述本次修改。
+4. 仅提交必要文件，避免上传敏感信息及无关文件。
